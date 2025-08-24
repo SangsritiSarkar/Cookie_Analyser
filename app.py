@@ -35,7 +35,7 @@ st.title("🍪 Cookie Category Analyzer")
 st.write("Analyze and categorize your website's cookies.")
 
 # --- Corrected instructions to match original logic ---
-st.write("Please ensure your Excel file has **no header row**, with data starting from the second row:")
+st.write("Please ensure your Excel file has the following columns, with data starting from the second row:")
 st.markdown("""
 - **Column 1:** Should contain the Cookie Name
 - **Column 2:** Should contain the Domain Category
