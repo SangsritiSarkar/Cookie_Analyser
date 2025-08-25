@@ -252,8 +252,29 @@ if uploaded_file:
                     # Prepare for download
                     output_buffer = io.BytesIO()
                     with pd.ExcelWriter(output_buffer, engine="xlsxwriter") as writer:
+                        # Write the dataframe to the Excel file
                         output_df.to_excel(writer, index=False, sheet_name="Results")
-                    
+                        
+                        # Get the xlsxwriter workbook and worksheet objects
+                        workbook = writer.book
+                        worksheet = writer.sheets["Results"]
+                        
+                        # Define a format for the header
+                        header_format = workbook.add_format({
+                            'bold': True,
+                            'text_wrap': True,
+                            'valign': 'top',
+                            'fg_color': "#ABAAAA",  # Light gray color
+                            'border': 1
+                        })
+                        
+                        # Write the header row with the defined format
+                        for col_num, value in enumerate(output_df.columns.values):
+                            worksheet.write(0, col_num, value, header_format)
+                            
+                        # Set column widths for better readability
+                        worksheet.set_column('A:D', 25)
+
                     st.download_button(
                         label="📥 Download Results as Excel", 
                         data=output_buffer.getvalue(), 
